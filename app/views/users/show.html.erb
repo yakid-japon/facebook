@@ -1,0 +1,48 @@
+<%= render "partials/header-sign" %>
+
+<div class="container">
+        <% flash.each do |key, value| %>
+			<%= content_tag(:div, value, class: "alert alert-#{key} text-center") %>
+		<% end %>
+		<div class="row profile">
+			<%= render "partials/profil" %>
+			<div class="col-sm-9 body-profile">
+				<h3 class="text-center">
+					MES PUBLICATIONS 
+					<span class="label label-primary">
+						<%= get_current_user_post.size %>
+					</span>
+				</h3>
+				<hr>
+                <div class="row">
+					<% if get_current_user_post.size == 0 %>
+					<div class="alert alert-info text-center">
+						<p>Aucune publication trouvée...</p>
+					</div>
+					<% end %>
+					<% get_current_user_post.each do |post| %>
+                    <div class="col-md-6">
+						<div class="panel panel-primary" style="height: 250px; overflow: hidden">
+							<div class="panel-heading">
+							  <h3 class="panel-title"><%= post.created_at.to_s.to_time.strftime('%e %B %Y à %k:%M') %></h3>
+							  <div class="btn-group" role="group" aria-label="...">
+								<%= link_to 'Show', post, class: "btn btn-default btn-xs" %>
+								<%= link_to 'Edit', edit_post_path(post), class: "btn btn-info btn-xs" %>
+								<%= link_to 'Delete', post, method: :delete, class: "btn btn-danger btn-xs", data: { confirm: 'Vous êtes sûr de vouloir supprimer cette publication ?' } %>
+							  </div>
+							</div>
+							<div class="panel-body text-center">
+								<%= image_tag post.image.url, height: 150, alt: "" if post.image && post.image.url %>
+								<p class="text-justify">
+									<%= post.content.split(' ').first.capitalize if post.content && post.content.split(' ').first%> ... <em>(voir la suite)</em>
+								</p>
+							</div>
+						</div>
+					</div>
+                    <% end %>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height: 65px"></div>
+	</div>
+	<%= render "partials/footer" %>

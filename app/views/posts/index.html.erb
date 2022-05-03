@@ -1,0 +1,45 @@
+<%= render "partials/header-sign" %>
+
+<div class="container">
+		<div class="row profile">
+			<div class="col-sm-3">
+				<h2 class="text-center">PUBLIER</h2><hr>
+                <%= render "partials/form" %>
+			</div>
+			<div class="col-sm-9 body-profile">
+				<h3 class="text-center">
+					LISTE DES PUBLICATIONS 
+					<span class="label label-primary">
+						<%= @posts.size %>
+					</span>
+				</h3>
+				<hr>
+                <div class="row">
+					<% if @posts.size == 0 %>
+					<div class="alert alert-info text-center">
+						<p>Aucune publication trouvée...</p>
+					</div>
+					<% end %>
+					<% @posts.each do |post| %>
+					<div class="col-md-6">
+						<div class="panel panel-primary" style="height: 300px; overflow: hidden">
+							<div class="panel-heading">
+                                <h3 class="panel-title"><%= post.user.name + ' ' + post.user.surname %></h3>
+							    <h3 class="panel-title"><%= post.created_at.to_s.to_time.strftime('%e %B %Y à %k:%M') %></h3>
+							</div>
+							<div class="panel-body text-center">
+                                <p class="text-justify">
+									<%= post.content.capitalize %>
+								</p>
+								<%= image_tag post.image.url, height: 150, alt: "" if post.image && post.image.url %>
+							</div>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height: 65px"></div>
+</div>
+
+<%= render "partials/footer" %>
