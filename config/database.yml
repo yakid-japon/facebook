@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: yakid-instagram_production
-  username: yakid-instagram
-  password: <%= ENV['YAKID-INSTAGRAM_DATABASE_PASSWORD'] %>
