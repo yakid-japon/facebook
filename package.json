@@ -1,5 +1,7 @@
 {
   "name": "yakid-instagram",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
 }
